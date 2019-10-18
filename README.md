@@ -1,3 +1,3 @@
-# investment-calc
+# Investment Calculator
 
-Investment Value Calculator built using Bootstrap and jQuery
+Investment Value Calculator built using Bootstrap, plotly, and jQuery
