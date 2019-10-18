@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>My Website</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body class="bg-dark text-light">
+    <div
+      class="container-fluid"
+      style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+    >
+      <div class="row mt-3 justify-content-center" id="title">
+        <h1>Welcome to my investing calculator!</h1>
+      </div>
+      <div class="row mt-3 justify-content-center">
+        <div class="col-sm-6">
+          <form>
+            <div class="form-row no-gutters">
+              <div class="form-group col-md-6">
+                <label for="openingVal">Opening Value</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="openingVal"
+                    placeholder="0"
+                    pattern="\d+"
+                    aria-label="Opening Value"
+                  />
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="rateOfReturn">Rate of Return (%)</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="rateOfReturn"
+                    placeholder="0"
+                    pattern="[\d\.]+"
+                    aria-label="Rate of Return"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row no-gutters">
+              <div class="form-group col-md-6">
+                <label for="timeHorizon">Time Horizon</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="timeHorizon"
+                    placeholder="0"
+                    pattern="\d+"
+                    aria-label="Time Horizon"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="customFormOverlay"
+                      >Years</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="additionalContributions"
+                  >Additional Contributions</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="additionalContributions"
+                    placeholder="0"
+                    pattern="\d+"
+                    aria-label="Additional Contributions"
+                  />
+                  <div class="input-group-append">
+                    <select id="contributionFreq" class="form-control">
+                      <option value="0" selected>Choose...</option>
+                      <option value="1">Weekly</option>
+                      <option value="2">Biweekly</option>
+                      <option value="3">Monthly</option>
+                      <option value="4">Annually</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row no-gutters">
+              <div class="form-group col-md-6">
+                <label for="compoundFreq">Compound Frequency</label>
+                <select id="compoundFreq" class="form-control">
+                  <option value="0">Daily</option>
+                  <option value="1">Weekly</option>
+                  <option value="2">Monthly</option>
+                  <option value="3">Annually</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-success" type="submit" id="submit">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row mt-5 justify-content-center">
+        <div class="col-sm-4 no-gutters">
+          <div class="row align-self-center justify-content-start">
+            <h2 id="invVal">Closing Value of Your Investment</h2>
+          </div>
+        </div>
+        <div class="col-sm-2 no-gutters">
+          <div class="row align-self-center justify-content-end">
+            <h3>$</h3>
+            <h3 id="closingVal"></h3>
+          </div>
+        </div>
+      </div>
+      <div class="row align-self-center justify-content-start mt-3">
+        <div class="col-4">
+          <div id="investmentBreakdownChart"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="index.js"></script>
+</html>
