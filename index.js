@@ -97,7 +97,7 @@ $(document).ready(() => {
       ($additional - $additionalCont * ($time * $contribFreq));
     $contributions = $additionalCont * $time * $contribFreq;
     $closingVal += $additional;
-    plot($openingVal, $contributions, $interestEarned);
+    plot($openingVal.toFixed(2), $contributions.toFixed(2), $interestEarned.toFixed(2));
     $("#closingVal").text($closingVal.toFixed(2));
   });
 });
