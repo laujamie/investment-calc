@@ -70,7 +70,9 @@ $(document).ready(() => {
 
   $("button#submit").click(function() {
     console.log($compoundFreq);
-    $openingVal = $("input#openingVal").val() ? $("input#openingVal").val() : 0;
+    $openingVal = $("input#openingVal").val()
+      ? parseFloat($("input#openingVal").val())
+      : 0;
     $ror = $("input#rateOfReturn").val()
       ? $("input#rateOfReturn").val() / 100
       : 0;
@@ -97,7 +99,11 @@ $(document).ready(() => {
       ($additional - $additionalCont * ($time * $contribFreq));
     $contributions = $additionalCont * $time * $contribFreq;
     $closingVal += $additional;
-    plot($openingVal.toFixed(2), $contributions.toFixed(2), $interestEarned.toFixed(2));
+    plot(
+      $openingVal.toFixed(2),
+      $contributions.toFixed(2),
+      $interestEarned.toFixed(2)
+    );
     $("#closingVal").text($closingVal.toFixed(2));
   });
 });
