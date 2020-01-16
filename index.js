@@ -49,6 +49,16 @@ const plot = (principle, contributions, interest) => {
   Plotly.newPlot("investmentBreakdownChart", data, layout);
 };
 
+const round = (value, decimals) => {
+  return Number(Math.round(value + "e" + decimals) + "e-" + decimals).toFixed(
+    decimals
+  );
+};
+
+const principleInterest = (principle, time, rate, compoundFreq) => {
+  return principle * Math.pow(1 + rate / compoundFreq, compoundFreq * time);
+};
+
 $(document).ready(() => {
   $("h3#closingVal").text($closingVal.toFixed(2));
 
@@ -63,13 +73,10 @@ $(document).ready(() => {
     $selectedText = $("select#compoundFreq")
       .find("option:selected")
       .val();
-    console.log($selectedText);
     $compoundFreq = compoundPeriods[$selectedText];
-    console.log($compoundFreq);
   });
 
   $("button#submit").click(function() {
-    console.log($compoundFreq);
     $openingVal = $("input#openingVal").val()
       ? parseFloat($("input#openingVal").val())
       : 0;
@@ -81,11 +88,10 @@ $(document).ready(() => {
       ? $("input#additionalContributions").val()
       : 0;
     if ($contribFreq === "Choose..." && $additionalCont != 0) {
-      alert("LEMAO JAMES");
+      alert("Please choose a contribution frequency.");
       return;
     }
-    $closingVal =
-      $openingVal * Math.pow(1 + $ror / $compoundFreq, $compoundFreq * $time);
+    $closingVal = principleInterest($openingVal, $time, $ror, $compoundFreq);
     $additional =
       $additionalCont > 0
         ? $additionalCont *
@@ -100,9 +106,9 @@ $(document).ready(() => {
     $contributions = $additionalCont * $time * $contribFreq;
     $closingVal += $additional;
     plot(
-      $openingVal.toFixed(2),
-      $contributions.toFixed(2),
-      $interestEarned.toFixed(2)
+      round($openingVal, 2),
+      round($contributions, 2),
+      round($interestEarned, 2)
     );
     $("#closingVal").text($closingVal.toFixed(2));
   });
