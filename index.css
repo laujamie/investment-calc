@@ -9,3 +9,7 @@ input[type="number"]::-webkit-outer-spin-button {
 h2#invVal {
   padding-left: 0.5em;
 }
+
+p.footer {
+  font-size: 0.25rem;
+}
